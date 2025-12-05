@@ -104,7 +104,8 @@ def extract_email(text):
     return m.group(0) if m else "Not Specified"
 
 def extract_phone(text):
-    m = re.search(r'\b(?:\+?91)?\s*\d{10}\b', text)
+    pattern = r'(?:\+?91[\s\-]*)?[6-9]\d{9}'
+    m = re.search(pattern, text)
     return m.group(0) if m else "Not Specified"
 
 def extract_college(text):
@@ -438,4 +439,5 @@ def export_json():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+
     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
